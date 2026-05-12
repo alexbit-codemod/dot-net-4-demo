@@ -1,6 +1,6 @@
 using System;
 using System.Configuration;
-using Microsoft.Owin.Hosting;
+
 using DemoApp.Abstractions;
 using DemoApp.Legacy.ClassicLib;
 using DemoApp.Shared;
@@ -8,11 +8,14 @@ using Microsoft.Extensions.Configuration;
 
 namespace DemoApp.Legacy.ApiHost;
 
-internal static class Program
+public class Program
 {
     // TODO(dotnet-appconfig-to-appsettings): inject IConfiguration; "ApiUrl" now lives in appsettings.json
     private static void Main()
     {
+        var builder = WebApplication.CreateBuilder();
+        var configuration = builder.Configuration;
+
         _ = BinaryFormatterProbe.SerializeInt(0);
 
         var apiUrl = configuration["ApiUrl"] ?? "";
@@ -20,12 +23,10 @@ internal static class Program
         Console.WriteLine("Demo App — shared JSON sample: {0}", OrderJson.Serialize(new OrderDto { Id = 42, Name = "demo" }));
 
         var baseUrl = configuration["SelfHostBaseUrl"] ?? "http://localhost:8088/";
-        using (WebApp.Start<Startup>(baseUrl))
-        {
-            Console.WriteLine("Demo App — Web API (OWIN) at {0}", baseUrl.TrimEnd('/'));
-            Console.WriteLine("Example: GET {0}/api/orders/1", baseUrl.TrimEnd('/'));
-            Console.WriteLine("Press Enter to exit.");
-            Console.ReadLine();
-        }
+        builder.Services.AddControllers().AddApplicationPart(typeof(Program).Assembly);
+        var app = builder.Build();
+        app.MapControllers();
+        app.Urls.Add(baseUrl);
+        app.Run();
     }
 }

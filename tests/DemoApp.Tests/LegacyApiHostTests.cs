@@ -14,11 +14,15 @@ public sealed class LegacyApiHostTests
     {
         using var server = new WebApplicationFactory<Program>();
         var client = server.CreateClient();
+        var pingResp = await client.GetAsync("/debug/ping");
+        var pingBody = await pingResp.Content.ReadAsStringAsync();
+        var routesResp = await client.GetAsync("/debug/routes");
+        var routesBody = await routesResp.Content.ReadAsStringAsync();
         var response = await client.GetAsync("/api/orders/1");
         var body = await response.Content.ReadAsStringAsync();
         Assert.True(
             response.StatusCode == HttpStatusCode.OK,
-            $"Expected 200 OK but got {(int)response.StatusCode} {response.StatusCode}. BaseAddress={client.BaseAddress}. Body={body}"
+            $"Expected 200 OK but got {(int)response.StatusCode} {response.StatusCode}. Body={body}. PingStatus={(int)pingResp.StatusCode}. PingBody={pingBody}. RoutesStatus={(int)routesResp.StatusCode}. Routes={routesBody}"
         );
         Assert.Contains("demo-app", body);
     }

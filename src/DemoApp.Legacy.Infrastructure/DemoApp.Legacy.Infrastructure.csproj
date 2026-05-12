@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFrameworks>net472;net8.0</TargetFrameworks>
     <LangVersion>10.0</LangVersion>
     <Nullable>disable</Nullable>
     <RootNamespace>DemoApp.Legacy.Infrastructure</RootNamespace>

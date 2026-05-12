@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>10.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <RootNamespace>DemoApp.Legacy.Infrastructure</RootNamespace>
+    <AssemblyName>DemoApp.Legacy.Infrastructure</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+
+</Project>

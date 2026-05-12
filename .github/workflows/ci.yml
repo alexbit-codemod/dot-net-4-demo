@@ -1,0 +1,36 @@
+# Step 1 (baseline): restore → compile → unit-test → integration-test
+name: demo-app-ci
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET SDK (build net472 with modern SDK)
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            8.0.x
+
+      - name: Restore
+        run: dotnet restore DemoApp.sln
+
+      - name: Compile
+        run: dotnet build DemoApp.sln -c Release --no-restore
+
+      - name: Unit + integration tests
+        run: dotnet test DemoApp.sln -c Release --no-build --logger "trx;LogFileName=test-results.trx"
+
+      - name: Upload test report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: build-artifacts
+          path: "**/test-results.trx"

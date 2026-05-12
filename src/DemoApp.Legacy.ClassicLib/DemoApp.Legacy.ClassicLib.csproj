@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B4C7E5A2-91F3-4D8E-BC12-6A0E3F7D4529}</ProjectGuid>
+    <ProjectGuid>{E8D0A45C-8B7F-4F2A-9C01-000000000003}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>LegacyMigrationDemo.Integrations</RootNamespace>
-    <AssemblyName>LegacyMigrationDemo.Integrations</AssemblyName>
+    <RootNamespace>DemoApp.Legacy.ClassicLib</RootNamespace>
+    <AssemblyName>DemoApp.Legacy.ClassicLib</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -30,18 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WebClientUserCatalogClient.cs" />
+    <Compile Include="BinaryFormatterProbe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LegacyMigrationDemo.Core\LegacyMigrationDemo.Core.csproj">
-      <Project>{6A1D9E43-8F2B-4C11-B5D9-7E4A2C6F9012}</Project>
-      <Name>LegacyMigrationDemo.Core</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

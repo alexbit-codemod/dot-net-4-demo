@@ -1,5 +1,7 @@
 using System;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace DemoApp.Legacy.Infrastructure;
 
@@ -9,10 +11,9 @@ public sealed class WebCatalogClient
 
     public WebCatalogClient(Uri baseUri) => _baseUri = baseUri;
 
-    public string DownloadRaw(string relativePath)
+    public async Task<string> DownloadRaw(string relativePath)
     {
-        using var client = new WebClient();
-        client.BaseAddress = _baseUri.ToString();
-        return client.DownloadString(new Uri(relativePath, UriKind.Relative));
+        using var client = new HttpClient { BaseAddress = _baseUri };
+        return await client.GetStringAsync(new Uri(relativePath, UriKind.Relative));
     }
 }

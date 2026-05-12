@@ -1,12 +1,13 @@
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DemoApp.Legacy.ApiHost;
 
-public sealed class OrdersController : ApiController
+[ApiController]
+public sealed class OrdersController : ControllerBase
 {
     [HttpGet]
     [Route("api/orders/{id:int}")]
-    public IHttpActionResult Get(int id)
+    public IActionResult Get(int id)
     {
         if (id <= 0)
             return BadRequest();

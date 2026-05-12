@@ -13,17 +13,9 @@ public sealed class LegacyApiHostTests
     public async Task Orders_get_returns_legacy_payload()
     {
         using var server = new WebApplicationFactory<Program>();
-        var client = server.CreateClient();
-        var pingResp = await client.GetAsync("/debug/ping");
-        var pingBody = await pingResp.Content.ReadAsStringAsync();
-        var routesResp = await client.GetAsync("/debug/routes");
-        var routesBody = await routesResp.Content.ReadAsStringAsync();
-        var response = await client.GetAsync("/api/orders/1");
+        var response = await server.CreateClient().GetAsync("/api/orders/1");
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         var body = await response.Content.ReadAsStringAsync();
-        Assert.True(
-            response.StatusCode == HttpStatusCode.OK,
-            $"Expected 200 OK but got {(int)response.StatusCode} {response.StatusCode}. Body={body}. PingStatus={(int)pingResp.StatusCode}. PingBody={pingBody}. RoutesStatus={(int)routesResp.StatusCode}. Routes={routesBody}"
-        );
         Assert.Contains("demo-app", body);
     }
 }

@@ -1,6 +1,5 @@
 using System;
 using System.Configuration;
-using System.Linq;
 
 using DemoApp.Abstractions;
 using DemoApp.Legacy.ClassicLib;
@@ -27,9 +26,6 @@ public class Program
         builder.Services.AddControllers().AddApplicationPart(typeof(Program).Assembly);
         var app = builder.Build();
         app.MapControllers();
-        app.MapGet("/debug/ping", () => "pong");
-        app.MapGet("/debug/routes", (Microsoft.AspNetCore.Routing.EndpointDataSource src) =>
-            string.Join("\n", src.Endpoints.Select(e => e.DisplayName)));
         app.Urls.Add(baseUrl);
         app.Run();
     }

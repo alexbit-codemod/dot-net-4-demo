@@ -3,11 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{B0B0B0B0-0000-0000-0000-000000000001}"
-	ProjectSection(SolutionItems) = preProject
-		docs\migration-assessment.md = docs\migration-assessment.md
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{B0B0B0B0-0000-0000-0000-000000000002}"
 	ProjectSection(SolutionItems) = preProject
 		deploy\parallel-validation.md = deploy\parallel-validation.md

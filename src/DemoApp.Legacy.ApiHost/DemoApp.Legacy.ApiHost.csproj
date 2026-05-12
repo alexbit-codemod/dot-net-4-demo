@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
     <OutputType>Exe</OutputType>
     <TargetFrameworks>net472;net8.0</TargetFrameworks>
     <LangVersion>10.0</LangVersion>

@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace DemoApp.Legacy.ApiHost;
 
-public static class Program
+public class Program
 {
     // TODO(dotnet-appconfig-to-appsettings): inject IConfiguration; "ApiUrl" now lives in appsettings.json
     private static void Main()

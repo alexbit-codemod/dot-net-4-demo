@@ -24,7 +24,7 @@ public class Program
         Console.WriteLine("Demo App — shared JSON sample: {0}", OrderJson.Serialize(new OrderDto { Id = 42, Name = "demo" }));
 
         var baseUrl = configuration["SelfHostBaseUrl"] ?? "http://localhost:8088/";
-        builder.Services.AddControllers();
+        builder.Services.AddControllers().AddApplicationPart(typeof(Program).Assembly);
         var app = builder.Build();
         app.MapControllers();
         app.MapGet("/debug/ping", () => "pong");

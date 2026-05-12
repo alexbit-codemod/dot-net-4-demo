@@ -1,5 +1,5 @@
 using Owin;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DemoApp.Legacy.ApiHost;
 

@@ -8,11 +8,14 @@ using Microsoft.Extensions.Configuration;
 
 namespace DemoApp.Legacy.ApiHost;
 
-internal static class Program
+public static class Program
 {
     // TODO(dotnet-appconfig-to-appsettings): inject IConfiguration; "ApiUrl" now lives in appsettings.json
     private static void Main()
     {
+        var builder = WebApplication.CreateBuilder();
+        var configuration = builder.Configuration;
+
         _ = BinaryFormatterProbe.SerializeInt(0);
 
         var apiUrl = configuration["ApiUrl"] ?? "";
@@ -20,7 +23,6 @@ internal static class Program
         Console.WriteLine("Demo App — shared JSON sample: {0}", OrderJson.Serialize(new OrderDto { Id = 42, Name = "demo" }));
 
         var baseUrl = configuration["SelfHostBaseUrl"] ?? "http://localhost:8088/";
-        var builder = WebApplication.CreateBuilder();
         builder.Services.AddControllers();
         var app = builder.Build();
         app.MapControllers();

@@ -1,4 +1,4 @@
-# Step 1 (baseline): restore → compile → unit-test → integration-test
+# Build, test, and publish a runnable Windows (net472) API host artifact.
 name: demo-app-ci
 
 on:
@@ -6,6 +6,7 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+  workflow_dispatch:
 
 jobs:
   build-and-test:
@@ -13,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup .NET SDK (build net472 with modern SDK)
+      - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: |
@@ -28,9 +29,14 @@ jobs:
       - name: Unit + integration tests
         run: dotnet test DemoApp.sln -c Release --no-build --logger "trx;LogFileName=test-results.trx"
 
-      - name: Upload test report
+      - name: Publish API host (Demo App — net472, self-contained output folder)
+        run: dotnet publish src/DemoApp.Legacy.ApiHost/DemoApp.Legacy.ApiHost.csproj -c Release --no-build -o "${{ github.workspace }}/artifacts/api-host"
+
+      - name: Upload test report + published app
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: build-artifacts
-          path: "**/test-results.trx"
+          path: |
+            **/test-results.trx
+            artifacts/api-host/
